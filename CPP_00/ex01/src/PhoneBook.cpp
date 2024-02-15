@@ -30,7 +30,7 @@ std::string	PhoneBook::add_info(const char *output)
 		flag = false;
 		if (!strcmp(output, PHONE) || !strcmp(output, INDEX))
 			check_output_type(&input, std::isdigit, &flag);
-		else if (strcmp(output, SECRET))
+		else if (strcmp(output, SECRET) && strcmp(output, N_NAME))
 			check_output_type(&input, std::isalpha, &flag);
 	}
 	return (input);
@@ -38,6 +38,7 @@ std::string	PhoneBook::add_info(const char *output)
 
 void	PhoneBook::add_cont()
 {
+	std::cout << index << " : " << index % 8 << std::endl;
 	index++;
 	contact[index % 8].setIndex(index % 8);
 	contact[index % 8].setName(add_info(NAME));
@@ -80,23 +81,24 @@ void	PhoneBook::show_table()
 void	PhoneBook::show_cont()
 {
 	std::string	input;
+	int			i;
 
 	while (!contact[0].getName().empty())
 	{
 		input = add_info(INDEX);
 		if (input.length() == 1)
 		{
-			index = std::atoi(input.c_str());
-			if (contact[index].getName().empty()) //???
+			i = std::atoi(input.c_str());
+			if (contact[i].getName().empty())
 			{
 				std::cout << INDEX_ERR << std::endl;
 				continue ;
 			}
-			std::cout << "NAME: " << contact[index].getName() << std::endl;
-			std::cout << "LAST NAME: " << contact[index].getLastname() << std::endl;
-			std::cout << "NICK NAME: " << contact[index].getNickname() << std::endl;
-			std::cout << "PHONE NUMBER: " << contact[index].getPhone() << std::endl;
-			std::cout << "DARKEST SECRET: " << contact[index].getSecret() << std::endl;
+			std::cout << "NAME: " << contact[i].getName() << std::endl;
+			std::cout << "LAST NAME: " << contact[i].getLastname() << std::endl;
+			std::cout << "NICK NAME: " << contact[i].getNickname() << std::endl;
+			std::cout << "PHONE NUMBER: " << contact[i].getPhone() << std::endl;
+			std::cout << "DARKEST SECRET: " << contact[i].getSecret() << std::endl;
 			break ;
 		}
 		else
