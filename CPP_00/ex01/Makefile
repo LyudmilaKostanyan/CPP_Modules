@@ -1,13 +1,23 @@
 NAME = phonebook
-CC = c++
-FLAGS =  -Wall -Wextra -Werror -std=c++98
-FILES = $(wildcard *.cpp)
+CPP = c++
+FLAGS = -Wall -Wextra -Werror -std=c++98
+SRC_DIR = ./src
+OBJ_DIR = ./obj
+INCL = $(wildcard includes/*.h*)
+FILES = $(wildcard $(SRC_DIR)/*.cpp)
 OBJ = $(FILES:.cpp=.o)
+OBJ = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(FILES))
 
-all: $(NAME)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	$(CPP) $(FLAGS) -c $< -o $@
 
-$(NAME): $(OBJ) Makefile
-	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
+all: mkdir $(NAME)
+
+$(NAME): $(OBJ) $(INCL) Makefile
+	$(CPP) $(FLAGS) $(OBJ) -o $(NAME)
+
+mkdir:
+	@mkdir -p $(OBJ_DIR)
 
 clean:
 	@rm -f $(OBJ)
