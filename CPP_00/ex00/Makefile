@@ -1,13 +1,16 @@
 NAME = megaphone
-CC = c++
-FLAGS =  -Wall -Wextra -Werror -std=c++98
+CPP = c++
+FLAGS = -Wall -Wextra -Werror -std=c++98
 FILES = $(wildcard *.cpp)
 OBJ = $(FILES:.cpp=.o)
+
+%.o: %.cpp
+	$(CPP) $(FLAGS) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJ) Makefile
-	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
+	$(CPP) $(FLAGS) $(OBJ) -o $(NAME)
 
 clean:
 	@rm -f $(OBJ)

@@ -5,7 +5,6 @@ SRC_DIR = ./src
 OBJ_DIR = ./obj
 INCL = $(wildcard includes/*.h*)
 FILES = $(wildcard $(SRC_DIR)/*.cpp)
-OBJ = $(FILES:.cpp=.o)
 OBJ = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(FILES))
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
@@ -21,6 +20,7 @@ mkdir:
 
 clean:
 	@rm -f $(OBJ)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@rm -f $(NAME)
