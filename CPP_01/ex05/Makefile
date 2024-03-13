@@ -1,4 +1,4 @@
-NAME = horde
+NAME = harl
 CPP = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98
 SRC_DIR = ./src
