@@ -13,7 +13,6 @@ ClapTrap::ClapTrap(ClapTrap &other)
 
 void	ClapTrap::setName(std::string name)
 {
-	std::cout << "ClapTrap Constructor called" << std::endl;
 	this->name = name;
 }
 
@@ -24,6 +23,7 @@ std::string	ClapTrap::getName()
 
 ClapTrap::ClapTrap(std::string name) : hit_points(10), energy_points(10), attack_damage(0)
 {
+	std::cout << "ClapTrap Constructor called" << std::endl;
 	setName(name);
 }
 
