@@ -2,30 +2,26 @@
 
 int	main()
 {
-    const Animal *meta = new Animal();
-    const Animal *j = new Dog();
-    const Animal *i = new Cat();
+	const Animal *A = new Animal();
+	const Animal *B = new Dog();
+	const Animal *C = new Cat();
 
-    std::cout << j->getType() << " " << std::endl;
-    std::cout << i->getType() << " " << std::endl;
+	std::cout << B->getType() << " " << std::endl;
+	std::cout << C->getType() << " " << std::endl;
+	A->makeSound();
+	B->makeSound();
+	C->makeSound();
+	delete A;
+	delete B;
+	delete C;
 
-    i->makeSound(); //will output the cat sound!
-    j->makeSound();
+	const WrongAnimal *A = new WrongAnimal();
+	const WrongAnimal *B = new WrongCat();
 
-    meta->makeSound();
+	A->makeSound();
+	B->makeSound();
+	delete A;
+	delete B;
 
-    delete i;
-    delete j;
-    delete meta;
-
-    const WrongAnimal *wa = new WrongAnimal();
-    const WrongAnimal *wc = new WrongCat();
-
-    wa->makeSound();
-    wc->makeSound();
-
-    delete wa;
-    delete wc;
-
-    return 0;
+	return 0;
 }
