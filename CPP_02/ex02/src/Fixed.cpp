@@ -142,7 +142,7 @@ const Fixed	&Fixed::min(const Fixed &num1, const Fixed &num2)
 
 Fixed	&Fixed::max(Fixed &num1, Fixed &num2)
 {
-	return (num1.getRawBits() > num2.getRawBits() ? num1 : num2);
+	return (num1 > num2 ? num1 : num2);
 }
 
 const Fixed	&Fixed::max(const Fixed &num1, const Fixed &num2)
