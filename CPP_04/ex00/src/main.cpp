@@ -15,13 +15,13 @@ int	main()
 	delete B;
 	delete C;
 
-	const WrongAnimal *A = new WrongAnimal();
-	const WrongAnimal *B = new WrongCat();
+	const WrongAnimal *D = new WrongAnimal();
+	const WrongAnimal *E = new WrongCat();
 
-	A->makeSound();
-	B->makeSound();
-	delete A;
-	delete B;
+	D->makeSound();
+	E->makeSound();
+	delete D;
+	delete E;
 
 	return 0;
 }
