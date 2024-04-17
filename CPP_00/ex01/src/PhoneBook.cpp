@@ -38,7 +38,6 @@ std::string	PhoneBook::add_info(const char *output)
 
 void	PhoneBook::add_cont()
 {
-	std::cout << index << " : " << index % 8 << std::endl;
 	index++;
 	contact[index % 8].setIndex(index % 8);
 	contact[index % 8].setName(add_info(NAME));
