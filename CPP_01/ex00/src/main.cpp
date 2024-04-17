@@ -5,7 +5,7 @@ int	main()
 	std::string	name;
 	Zombie		*zombie;
 
-	std::cout << "Ender zombie's name: ";
+	std::cout << "Enter zombie's name: ";
 	getline(std::cin, name);
 	zombie = newZombie(name);
 	randomChump(name);

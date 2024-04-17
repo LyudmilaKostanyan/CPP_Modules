@@ -32,8 +32,15 @@ void	Harl::error()
 
 void	Harl::complain(std::string level)
 {
-	std::string func_names[4] = {"debug", "info", "warning", "error"};
+	std::string func_names[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 	for (int i = 0; i < 4; i++)
+	{
 		if (!level.compare(func_names[i]))
+		{
 			(this->*func[i])();
+			return ;
+		}
+	}
+	if (level.compare("EXIT"))
+		std::cout << "\033[1;31mWrong command\033[0m" << std::endl;
 }

@@ -17,6 +17,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
+	@rm *.replace
 
 re: fclean all
 

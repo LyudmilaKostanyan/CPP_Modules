@@ -6,9 +6,9 @@ int	main()
 	std::string	count;
 	Zombie		*horde;
 
-	std::cout << "Ender zombie name: ";
+	std::cout << "Enter zombie name: ";
 	getline(std::cin, name);
-	std::cout << "Ender number of zombies: ";
+	std::cout << "Enter number of zombies: ";
 	getline(std::cin, count);
 	horde = zombieHorde(atoi(count.c_str()), name);
 	for (int i = 0; i < atoi(count.c_str()); i++)
