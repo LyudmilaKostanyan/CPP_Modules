@@ -63,5 +63,8 @@ void	FragTrap::attack(const std::string &target)
 
 void	FragTrap::highFivesGuys()
 {
-	std::cout << "FragTrap " << name << " called high five guys" << std::endl;
+	if (hit_points)
+		std::cout << "FragTrap " << name << " called high five guys" << std::endl;
+	else
+		std::cout << "ScavTrap " << this->name << " died" << std::endl;
 }
