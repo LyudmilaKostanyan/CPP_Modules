@@ -2,13 +2,14 @@
 # define AFORM_HPP
 
 # include <iostream>
+# include <fstream>
 # include "Bureaucrat.hpp"
 
 class Bureaucrat;
 
 class AForm
 {
-	private:
+	protected:
 		const std::string	name;
 		bool				isSigned;
 		const int			signedGrade;
@@ -29,13 +30,19 @@ class AForm
 			public:
 				const char *what() const throw();
 		};
+		class SignedException : public std::exception
+		{
+			public:
+				const char *what() const throw();
+		};
 		std::string		getName() const;
 		bool			getIsSigned() const;
 		int				getSignedGrade() const;
 		int				getExecGrade() const;
 		void			setIsSigned(bool isSigned);
-		virtual void	beSigned(Bureaucrat &bureaucrat);
-		virtual void	execute(Bureaucrat const & executor);
+		void			beSigned(Bureaucrat const &bureaucrat);
+		virtual void	execute(Bureaucrat const & executor) const = 0;
+		void			check(Bureaucrat const & executor) const;
 };
 
 std::ostream	&operator<<(std::ostream &os, const AForm &form);

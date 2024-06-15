@@ -1,13 +1,31 @@
-#include "../includes/Form.hpp"
+#include "../includes/ShrubberyCreationForm.hpp"
+#include "../includes/RobotomyRequestForm.hpp"
+#include "../includes/PresidentialPardonForm.hpp"
 
-int	main()
+int main()
 {
 	try
-	{
-		Bureaucrat bureaucrat("bureaucrat", 1);
-		Form form("form", 3, 5);
+    {
+		Bureaucrat bureaucrat("A", 137);
+		ShrubberyCreationForm form("ShrubberyCreationForm");
+
+		bureaucrat.executeForm(form);
 		bureaucrat.signForm(form);
-		std::cout << form;
+		bureaucrat.executeForm(form);
+		std::cout << form << std::endl;
+	}
+	catch (std::exception &e)
+	{
+	    std::cout << e.what() << std::endl;
+	}
+	try
+	{
+		Bureaucrat bureaucrat("B", 1);
+		RobotomyRequestForm form("RobotomyRequestForm");
+		bureaucrat.executeForm(form);
+		bureaucrat.signForm(form);
+		bureaucrat.executeForm(form);
+		std::cout << form << std::endl;
 	}
 	catch (std::exception &e)
 	{
@@ -15,15 +33,16 @@ int	main()
 	}
 	try
 	{
-		Bureaucrat bureaucrat("bureaucrat", 4);
-		Form form("form", 3, 5);
+		Bureaucrat bureaucrat("C", 1);
+		PresidentialPardonForm form("PresidentialPardonForm");
+		bureaucrat.executeForm(form);
 		bureaucrat.signForm(form);
-		std::cout << form;
+		bureaucrat.executeForm(form);
+		std::cout << form << std::endl;
 	}
 	catch (std::exception &e)
 	{
 		std::cout << e.what() << std::endl;
 	}
 	return 0;
-
 }

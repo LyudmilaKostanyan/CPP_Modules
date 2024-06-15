@@ -1,5 +1,6 @@
 {
 	"files.associations": {
+		"c_cpp_properties.json": "jsonc",
 		"cctype": "cpp",
 		"clocale": "cpp",
 		"cmath": "cpp",
@@ -48,6 +49,12 @@
 		"streambuf": "cpp",
 		"typeinfo": "cpp",
 		"cstring": "cpp",
-		"fstream": "cpp"
+		"fstream": "cpp",
+		"chrono": "cpp",
+		"stop_token": "cpp",
+		"thread": "cpp",
+		"ratio": "cpp",
+		"semaphore": "cpp",
+		"cinttypes": "cpp"
 	}
 }
