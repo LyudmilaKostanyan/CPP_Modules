@@ -2,11 +2,9 @@
 
 int	main()
 {
-	Bureaucrat	A("A", 150);
-	Bureaucrat	B("B", 1);
-
 	try
 	{
+		Bureaucrat	A("A", 150);
 		std::cout << A << std::endl;
 		A.decrement();
 		std::cout << A << std::endl;
@@ -21,6 +19,7 @@ int	main()
 	}
 	try
 	{
+		Bureaucrat	B("B", 1);
 		std::cout << B << std::endl;
 		B.increment();
 		std::cout << B << std::endl;

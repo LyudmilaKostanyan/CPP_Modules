@@ -92,6 +92,6 @@ void	Bureaucrat::executeForm(AForm const & form)
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << name << " faild to execute. " << e.what() << '\n';
+		std::cerr << name << " failed to execute. " << e.what() << '\n';
 	}
 }
