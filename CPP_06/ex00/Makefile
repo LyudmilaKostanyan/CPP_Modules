@@ -1,13 +1,12 @@
 NAME = convert
 CPP = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98 #-g -fsanitize=address
-SRC_DIR = ./src
 OBJ_DIR = ./obj
 INCL = $(wildcard includes/*.h*)
-FILES = $(wildcard $(SRC_DIR)/*.cpp)
-OBJ = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(FILES))
+FILES = $(wildcard *.cpp)
+OBJ = $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(FILES))
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+$(OBJ_DIR)/%.o: %.cpp
 	$(CPP) $(FLAGS) -c $< -o $@
 
 all: mkdir $(NAME)
