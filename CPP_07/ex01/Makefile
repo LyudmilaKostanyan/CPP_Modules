@@ -1,4 +1,4 @@
-NAME = whatever
+NAME = iter
 CPP = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98 #-g -fsanitize=address
 OBJ_DIR = ./obj
