@@ -1,7 +1,7 @@
-#ifndef ARRAY_HPP
-# define ARRAY_HPP
+#ifndef ARRAY_TPP
+# define ARRAY_TPP
 
-# include "Array.hpp"
+# include <Array.hpp>
 
 template <typename T>
 Array<T>::Array() : _size(0), array(NULL) {}
@@ -64,6 +64,12 @@ template <typename T>
 unsigned int	Array<T>::size() const
 {
 	return this->_size;
+}
+
+template <typename T>
+const char *Array<T>::IndexException::what() const throw()
+{
+	return "Index out of range";
 }
 
 #endif

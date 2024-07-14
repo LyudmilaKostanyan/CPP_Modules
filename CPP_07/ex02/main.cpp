@@ -49,7 +49,8 @@ int main()
 
 	for (int i = 0; i < MAX_VAL; i++)
 	{
-		numbers[i] = rand();
+		numbers[i] = i;
+		std::cout << numbers[i] << std::endl;
 	}
 	delete [] mirror;//
 	return 0;

@@ -18,10 +18,7 @@ class Array
 		class IndexException : public std::exception
 		{
 			public:
-				const char *what() const throw()
-				{
-					return "Index out of range";
-				}
+				const char *what() const throw();
 		};
 		T&		operator[](int index);
 		const T	&operator[](int index) const;
