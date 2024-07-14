@@ -8,7 +8,7 @@ class Array
 {
 	private:
 		T				*array;
-		unsigned int	size;
+		unsigned int	_size;
 	public:
 		Array();
 		Array(unsigned int size);
@@ -18,10 +18,14 @@ class Array
 		class IndexException : public std::exception
 		{
 			public:
-				const char *what() const throw();
+				const char *what() const throw()
+				{
+					return "Index out of range";
+				}
 		};
 		T&		operator[](int index);
 		const T	&operator[](int index) const;
+		unsigned int	size() const;
 };
 
 # include "Array.tpp"

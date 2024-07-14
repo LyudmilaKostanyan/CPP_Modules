@@ -1,37 +1,37 @@
 #ifndef ARRAY_HPP
 # define ARRAY_HPP
 
-# include <Array.hpp>
+# include "Array.hpp"
 
 template <typename T>
-Array<T>::Array() : size(0), array(NULL) {}
+Array<T>::Array() : _size(0), array(NULL) {}
 
 template <typename T>
 Array<T>::Array(unsigned int size)
 {
-	this->size = size;
+	this->_size = size;
 	array = new T[size];
 }
 
 template <typename T>
 Array<T>::Array(const Array &other)
 {
-	this->size = other.size;
-	array = new T[other.size];
-	for (unsigned int i = 0; i < other.size; i++)
+	this->_size = other._size;
+	array = new T[other._size];
+	for (unsigned int i = 0; i < other._size; i++)
 			array[i] = other.array[i];
 }
 
 template <typename T>
-Array &Array<T>::operator=(const Array &other)
+Array<T> &Array<T>::operator=(const Array &other)
 {
 	if (this != &other)
 	{
 		if (array)
 			delete [] array;
-		this->size = size;
-		array = new T[n];
-		for (unsigned int i = 0; i < other.size; i++)
+		this->_size = _size;
+		array = new T[_size];
+		for (unsigned int i = 0; i < other._size; i++)
 			array[i] = other.array[i];
 	}
 	return *this;
@@ -47,7 +47,7 @@ Array<T>::~Array()
 template <typename T>
 const T& Array<T>::operator[](int index) const
 {
-	if (index < 0 || index >= size)
+	if (index < 0 || index >= _size)
 		throw IndexException();
 	return array[index];
 }
@@ -55,14 +55,15 @@ const T& Array<T>::operator[](int index) const
 template <typename T>
 T& Array<T>::operator[](int index)
 {
-	if (index < 0 || index >= size)
+	if (index < 0 || index >= _size)
 		throw IndexException();
 	return array[index];
 }
 
-const char *Array::IndexException::what() const throw()
+template <typename T>
+unsigned int	Array<T>::size() const
 {
-	return ("Index out of range");
+	return this->_size;
 }
 
 #endif

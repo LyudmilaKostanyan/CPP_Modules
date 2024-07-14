@@ -5,7 +5,7 @@ IFLAGS = -I.
 OBJ_DIR = ./obj
 INCL = $(wildcard .h*)
 FILES = $(wildcard *.cpp)
-OBJ = $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(FILES)) Array.tpp
+OBJ = $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(FILES))
 
 $(OBJ_DIR)/%.o: %.cpp
 	$(CPP) $(IFLAGS) -I. -c $< -o $@
@@ -13,7 +13,7 @@ $(OBJ_DIR)/%.o: %.cpp
 all: mkdir $(NAME)
 
 $(NAME): $(OBJ) $(INCL) Makefile
-	$(CPP) $(FLAGS) $(IFLAGS) $(OBJ) -o $(NAME)
+	$(CPP) $(FLAGS) $(OBJ) -o $(NAME)
 
 mkdir:
 	@mkdir -p $(OBJ_DIR)
@@ -24,7 +24,6 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-	@rm -f *_shrubbery
 
 re: fclean all
 

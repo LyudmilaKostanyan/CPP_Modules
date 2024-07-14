@@ -1,7 +1,9 @@
 #include <iostream>
-#include <Array.hpp>
+#include "Array.hpp"
+#include <ctime>
+#include <cstdlib>
 
-#define MAX_VAL 750
+#define MAX_VAL 50
 int main()
 {
 	Array<int> numbers(MAX_VAL);
@@ -21,11 +23,12 @@ int main()
 
 	for (int i = 0; i < MAX_VAL; i++)
 	{
-	if (mirror[i] != numbers[i])
-	{
-		std::cerr << "didn't save the same value!!" << std::endl;
-		return 1;
-	}
+		std::cout << numbers[i] << std::endl;
+		if (mirror[i] != numbers[i])
+		{
+			std::cerr << "didn't save the same value!!" << std::endl;
+			return 1;
+		}
 	}
 	try
 	{
@@ -37,9 +40,9 @@ int main()
 	}
 	try
 	{
-	numbers[MAX_VAL] = 0;
+		numbers[MAX_VAL] = 0;
 	}
-		catch(const std::exception& e)
+	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
