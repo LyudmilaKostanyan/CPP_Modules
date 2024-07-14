@@ -1,18 +1,19 @@
-NAME = whatever
+NAME = array
 CPP = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98 #-g -fsanitize=address
+IFLAGS = -I.
 OBJ_DIR = ./obj
-INCL = $(wildcard *.h*)
+INCL = $(wildcard .h*)
 FILES = $(wildcard *.cpp)
-OBJ = $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(FILES))
+OBJ = $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(FILES)) Array.tpp
 
 $(OBJ_DIR)/%.o: %.cpp
-	$(CPP) $(FLAGS) -c $< -o $@
+	$(CPP) $(IFLAGS) -I. -c $< -o $@
 
 all: mkdir $(NAME)
 
 $(NAME): $(OBJ) $(INCL) Makefile
-	$(CPP) $(FLAGS) $(OBJ) -o $(NAME)
+	$(CPP) $(FLAGS) $(IFLAGS) $(OBJ) -o $(NAME)
 
 mkdir:
 	@mkdir -p $(OBJ_DIR)
