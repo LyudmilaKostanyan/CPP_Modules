@@ -58,6 +58,7 @@
 		"typeinfo": "cpp",
 		"*.tpp": "c",
 		"array.hpp": "c",
-		"list": "cpp"
+		"list": "cpp",
+		"span": "cpp"
 	}
 }
