@@ -1,6 +1,6 @@
-NAME = array
+NAME = easyfind
 CPP = c++
-FLAGS = -Wall -Wextra -Werror -std=c++98 #-g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -std=c++98
 IFLAGS = -I.
 OBJ_DIR = ./obj
 INCL = $(wildcard .h*)
