@@ -59,6 +59,11 @@
 		"*.tpp": "c",
 		"array.hpp": "c",
 		"list": "cpp",
-		"span": "cpp"
+		"span": "cpp",
+		"charconv": "cpp",
+		"map": "cpp",
+		"optional": "cpp",
+		"variant": "cpp",
+		"format": "cpp"
 	}
 }
