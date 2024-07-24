@@ -36,7 +36,7 @@ bool	check_line(std::string line, int pipe, std::string key, float value)
 		std::cerr << "Error: too large a number." << std::endl;
 		return (false);
 	}
-	if (value < 0)
+	if (value <= 0)
 	{
 		std::cerr << "Error: not a positive number." << std::endl;
 		return (false);
@@ -102,7 +102,6 @@ BitcoinExchange::BitcoinExchange(std::string file_name)
 						_key = std::to_string(atoi(_key.substr(0, 4).c_str()) - 1) + "-12-31";
 				}
 			}
-			// std::cout << "asdasdasd: " << _key << std::endl;
 			std::cout << key << " => " << value << " = " << value * data[_key] << std::endl;
 		}
 	}
