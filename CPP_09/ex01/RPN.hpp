@@ -14,6 +14,7 @@ class RPN
 		~RPN();
 		RPN(const RPN &other);
 		RPN &operator=(const RPN &other);
+		bool	operations_handler(char);
 };
 
 #endif

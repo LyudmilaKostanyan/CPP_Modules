@@ -16,25 +16,50 @@ RPN &RPN::operator=(const RPN &other)
 	return (*this);
 }
 
-RPN::RPN(std::string arg)
+bool	RPN::operations_handler(char arg)
 {
-// 	for (int i = 0; i < arg.length(); i++)
-// 	{
-// 		if (arg[i] != ' ' || arg[i] != '+' || arg[i] != '-' || arg[i] != '*'
-// 			|| arg[i] != '/' || (arg[i] >= '0' && arg[i] <= '9'))
-// 		{
-// 			std::cout << "Error: wrong symbols." << std::endl;
-// 			return ;
-// 		}
-// 	}
-
 	double	num1;
 	double	num2;
 
+	num1 = nums.top();
+	nums.pop();
+	num2 = nums.top();
+	nums.pop();
+	if (arg == '+')
+		nums.push(num2 + num1);
+	else if (arg == '-')
+		nums.push(num2 - num1);
+	else if (arg == '*')
+		nums.push(num2 * num1);
+	else if (arg == '/')
+	{
+		if (num1 == 0)
+		{
+			std::cout << "Error: division by zero." << std::endl;
+			return (false);
+		}
+		nums.push(num2 / num1);
+	}
+	else
+	{
+		std::cout << "Error: wrong symbols." << std::endl;
+		return (false);
+	}
+	return (true);
+}
+
+RPN::RPN(std::string arg)
+{
+
 	for (int i = 0; i < arg.length(); i++)
 	{
-		while (arg[i] == ' ')
-			i++;
+		if (arg[i] == ' ')
+			continue ;
+		if (nums.size() > 2)
+		{
+			std::cout << "Error: too many numbers." << std::endl;
+			return ;
+		}
 		if (isdigit(arg[i]))
 			nums.push(arg[i] - '0');
 		else if (nums.size() < 2)
@@ -43,32 +68,11 @@ RPN::RPN(std::string arg)
 			return ;
 		}
 		else
-		{
-			num1 = nums.top();
-			nums.pop();
-			num2 = nums.top();
-			nums.pop();
-			if (arg[i] == '+')
-				nums.push(num2 + num1);
-			else if (arg[i] == '-')
-				nums.push(num2 - num1);
-			else if (arg[i] == '*')
-				nums.push(num2 * num1);
-			else if (arg[i] == '/')
-			{
-				if (num1 == 0)
-				{
-					std::cout << "Error: division by zero." << std::endl;
-					return ;
-				}
-				nums.push(num2 / num1);
-			}
-			else
-			{
-				std::cout << "Error: wrong symbols." << std::endl;
+			if (!operations_handler(arg[i]))
 				return ;
-			}
-		}
 	}
-	std::cout << nums.top() << std::endl;
+	if (nums.size() != 0)
+		std::cout << nums.top() << std::endl;
+	else
+		std::cout << "Error: pleas write expression." << std::endl;
 }
