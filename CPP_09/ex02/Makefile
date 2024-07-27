@@ -1,4 +1,4 @@
-NAME = RPN
+NAME = PmergeMe
 CPP = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98
 IFLAGS = -I.
@@ -13,7 +13,7 @@ $(OBJ_DIR)/%.o: %.cpp
 all: mkdir $(NAME)
 
 $(NAME): $(OBJ) $(INCL) Makefile
-	$(CPP) $(OBJ) -o $(NAME)
+	$(CPP) $ $(OBJ) -o $(NAME)
 
 mkdir:
 	@mkdir -p $(OBJ_DIR)

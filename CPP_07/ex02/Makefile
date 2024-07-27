@@ -8,12 +8,12 @@ FILES = $(wildcard *.cpp)
 OBJ = $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(FILES))
 
 $(OBJ_DIR)/%.o: %.cpp
-	$(CPP) $(IFLAGS) -I. -c $< -o $@
+	$(CPP) $(FLAGS) $(IFLAGS) -I. -c $< -o $@
 
 all: mkdir $(NAME)
 
 $(NAME): $(OBJ) $(INCL) Makefile
-	$(CPP) $(FLAGS) $(OBJ) -o $(NAME)
+	$(CPP) $(OBJ) -o $(NAME)
 
 mkdir:
 	@mkdir -p $(OBJ_DIR)
