@@ -70,20 +70,13 @@ void	merge_sort(C &container, size_t first, size_t last)
 }
 
 template <typename C>
-void	second_step(C &container, C &largest)
+void	second_step(C &container, C &largest, C &smallest)
 {
 	size_t	i;
 
 	for (i = 1; i < container.size(); i+=2)
 		largest.push_back(container[i]);
 	merge_sort<C>(largest, 0, largest.size() - 1);
-}
-
-template <typename C>
-void	third_step(C container, C &largest, C &smallest)
-{
-	size_t	i;
-
 	for (i = 1; i < container.size(); i+=2)
 	{
 		if (largest[0] == container[i])
@@ -91,17 +84,9 @@ void	third_step(C container, C &largest, C &smallest)
 		else
 			smallest.push_back(container[i - 1]);
 	}
-	if (container.end() == container.begin() + i)
-		smallest.push_back(container[i - 1]);
+	merge_sort<C>(smallest, 0, smallest.size() - 1);
 }
 
-template <typename C>
-size_t	group_size(C container, size_t i)
-{
-	if (i == 0)
-		return (0);
-	return (std::pow(2, i) - group_size(container, i - 1));
-}
 
 template <typename C>
 void	binary_search(C &container, size_t left, size_t right, size_t value)
@@ -131,19 +116,25 @@ void	binary_search(C &container, size_t left, size_t right, size_t value)
 		binary_search(container, mid + 1, right, value);
 }
 
-template <typename C>
-void	fourth_step(C &largest, C &smallest)
+size_t	jacobsthal_numbers(size_t n)
 {
-	for (size_t i = 0, j = 1, g_size = group_size(smallest, j); i < smallest.size();
-		i += g_size, j++, g_size = group_size(smallest, j))
+	return ((pow(2, n) - pow(-1, n))/ 3);
+}
+
+template <typename C>
+void	third_step(C &container, C &largest, C &smallest)
+{
+	for (size_t i = 0, num = jacobsthal_numbers(i); i < smallest.size()
+		&& num < smallest.size(); i++, num= jacobsthal_numbers(i))
 	{
-		if (smallest.begin() + i + g_size < smallest.end())
-			std::reverse(smallest.begin() + i, smallest.begin() + i + g_size);
-		else
-			std::reverse(smallest.begin() + i, smallest.end());
+		binary_search(largest, 0, largest.size(), smallest[num]);
+		smallest.erase(smallest.begin() + num);
 	}
-	for (size_t i = 0; i < smallest.size(); i++)
+	for(size_t i = 0; i < smallest.size(); i++)
 		binary_search(largest, 0, largest.size(), smallest[i]);
+	if (container.size() % 2 == 1)
+		binary_search(largest, 0, largest.size(), container[container.size() - 1]);
+	container = largest;
 }
 
 template <typename C>
@@ -153,10 +144,8 @@ void	merge_insert_sort(C &container)
 	C	smallest;
 
 	first_step(container);
-	second_step(container, largest);
+	second_step(container, largest, smallest);
 	third_step(container, largest, smallest);
-	fourth_step(largest, smallest);
-	container = largest;
 }
 
 template <typename C>
@@ -194,5 +183,4 @@ PmergeMe::PmergeMe(char **argv)
 	std::cout << std::endl;
 	std::cout <<  TIME << vector.size() << VECTOR << time_v << " us" << std::endl;
 	std::cout <<  TIME << deque.size() << DEQUE << time_d << " us" << std::endl;
-
 }
