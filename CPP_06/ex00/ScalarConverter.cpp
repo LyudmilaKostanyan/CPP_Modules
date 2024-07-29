@@ -15,29 +15,7 @@ ScalarConverter	&ScalarConverter::operator=(const ScalarConverter &other)
 	return *this;
 }
 
-int	ft_atoi(std::string literal)
-{
-	long int	num = 0;
-	int			sign = 1;
-	int			i = 0;
-
-	if (literal[0] == '-')
-	{
-		sign = -1;
-		i++;
-	}
-	if (literal[0] == '+')
-		i++;
-	if (literal.length() - i > 10)
-		return (0);
-	while (literal[i])
-		num = num * 10 + (literal[i++] - 48);
-	if (num < INT_MIN || num > INT_MAX)
-		return (0);
-	return (num * sign);
-}
-
-int	check_type(std::string num)
+int	check(std::string num)
 {
 	size_t	point;
 	size_t	f_sign;
@@ -45,7 +23,8 @@ int	check_type(std::string num)
 	point = num.find(".", 0);
 	f_sign = num.find("f", 0);
 	for (size_t i = 0; i < num.length(); i++)
-		if (!isdigit(num[i]) && i != point && i != f_sign && num[0] != '+' && num[0] != '-')
+		if ((!isdigit(num[i]) && i != point && i != f_sign)
+			|| (i == 0 && (num[i] == '-' || num[i] == '+')))
 			return (0);
 	if (point != std::string::npos)
 	{
@@ -60,64 +39,50 @@ int	check_type(std::string num)
 	return (1);
 }
 
-int	convert_to_num(std::string num, int type, int &int_num, int &after_dot)
+void	convert_string(std::string num, int type)
 {
-	if (!type || num.substr(0, num.find(".", 0)).length() - !isdigit(num[0]) > 10)
-		return (0);
-	if (type == 1)
-	{
-		int_num = ft_atoi(num);
-		if (int_num == 0 && num.length() > 1)
-			return (0);
-		after_dot = 0;
-	}
-	else if (type == 2)
-	{
-		int_num = ft_atoi(num.substr(0, num.find(".", 0)));
-		if (int_num == 0 && num.substr(0, num.find(".", 0)).length() > 1)
-			return (0);
-		after_dot = ft_atoi(num.substr(num.find(".", 0) + 1, num.find("f", 0) - num.find(".", 0) - 1));
-	}
-	else
-	{
-		int_num = ft_atoi(num.substr(0, num.find(".", 0)));
-		if (int_num == 0 && num.substr(0, num.find(".", 0)).length() > 1)
-			return (0);
-		after_dot = ft_atoi(num.substr(num.find(".", 0) + 1, num.length() - num.find(".", 0) - 1));
-	}
-	return (1);
-}
+	double		numb;
+	int			int_num;
+	float		float_num;
+	double		double_num;
+	char		char_num;
 
-void	print_number(int int_num, int after_dot, int state)
-{
-	if (!state)
-		std::cout << "char: impossible" << std::endl;
-	else if (int_num < 32 || int_num > 126)
-		std::cout << "char: Non displayable" << std::endl;
+	if (type == 2 || type == 3)
+		numb = atof(num.c_str());
 	else
-		std::cout << "char: '" << static_cast<char>(int_num) << "'" << std::endl;
-	if (!state)
-		std::cout << "int: impossible" << std::endl;
+		numb = atoi(num.c_str());
+	int_num = static_cast<int>(numb);
+	float_num = static_cast<float>(numb);
+	double_num = static_cast<double>(numb);
+	char_num = static_cast<char>(numb);
+	if (!type || num.substr(0, num.find(".", 0)).length() - !isdigit(num[0]) > 10)
+		std::cout << "char:\timpossible" << std::endl;
+	else if (char_num < 32 || char_num > 126)
+		std::cout << "char:\tNon displayable" << std::endl;
 	else
-		std::cout << "int: " << int_num << std::endl;
-	if (!state)
-		std::cout << "float: nanf" << std::endl;
+		std::cout << "char:\t" << "'" << char_num << "'" << std::endl;
+	if (!type || num.substr(0, num.find(".", 0)).length() - !isdigit(num[0]) > 10)
+		std::cout << "int:\timpossible" << std::endl;
 	else
-		std::cout << "float: " << int_num << "." << after_dot << "f" << std::endl;
-	if (!state)
-		std::cout << "double: nan" << std::endl;
+		std::cout << "int:\t" << int_num << std::endl;
+	if (num == "-inff" || num == "+inff" || num == "nan")
+		std::cout << "float:\tnanf" << std::endl;
+	else if (!type || num.substr(0, num.find(".", 0)).length() - !isdigit(num[0]) > 10)
+		std::cout << "float:\t" << num << std::endl;
 	else
-		std::cout << "double: " << int_num << "." << after_dot << std::endl;
+		std::cout << "float:\t"  << std::fixed << std::setprecision(1) << float_num << "f" << std::endl;
+	if (num == "-inf" || num == "+inf")
+		std::cout << "double:\t" << num << std::endl;
+	else if (!type || num.substr(0, num.find(".", 0)).length() - !isdigit(num[0]) > 10)
+		std::cout << "double:\tnan" << std::endl;
+	else
+		std::cout << "double:\t" << std::fixed << std::setprecision(1) << double_num << std::endl;
 }
 
 void	ScalarConverter::convert(std::string num)
 {
 	int	type;
-	int	int_num;
-	int	after_dot;
-	int	state;
 
-	type = check_type(num);
-	state = convert_to_num(num, type, int_num, after_dot);
-	print_number(int_num, after_dot, state);
+	type = check(num);
+	convert_string(num, type);
 }

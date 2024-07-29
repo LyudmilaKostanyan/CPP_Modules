@@ -5,6 +5,7 @@
 # include <ctype.h>
 # include <limits.h>
 # include <iomanip>
+# include <cstdlib>
 
 class ScalarConverter
 {
