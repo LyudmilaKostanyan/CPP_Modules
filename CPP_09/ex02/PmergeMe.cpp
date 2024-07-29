@@ -154,7 +154,7 @@ double	start_timer(C &container)
 	clock_t	start = clock();
 	merge_insert_sort(container);
 	clock_t	end = clock();
-	return ((static_cast<double>(end - start) / CLOCKS_PER_SEC) * 1e6);
+	return (static_cast<double>(end - start));
 }
 
 PmergeMe::PmergeMe(char **argv)
