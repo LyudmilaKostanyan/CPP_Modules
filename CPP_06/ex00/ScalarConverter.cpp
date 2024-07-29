@@ -22,6 +22,8 @@ int	check(std::string num)
 
 	point = num.find(".", 0);
 	f_sign = num.find("f", 0);
+	if (num.length() == 1 && isalpha(num[0]))
+		return (4);
 	for (size_t i = 0; i < num.length(); i++)
 		if ((!isdigit(num[i]) && i != point && i != f_sign)
 			|| (i == 0 && (num[i] == '-' || num[i] == '+')))
@@ -49,6 +51,8 @@ void	convert_string(std::string num, int type)
 
 	if (type == 2 || type == 3)
 		numb = atof(num.c_str());
+	else if (type == 4)
+		numb = static_cast<int>(num[0]);
 	else
 		numb = atoi(num.c_str());
 	int_num = static_cast<int>(numb);
