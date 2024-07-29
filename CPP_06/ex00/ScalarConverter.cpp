@@ -66,9 +66,9 @@ void	convert_string(std::string num, int type)
 	else
 		std::cout << "int:\t" << int_num << std::endl;
 	if (num == "-inff" || num == "+inff" || num == "nan")
-		std::cout << "float:\tnanf" << std::endl;
-	else if (!type || num.substr(0, num.find(".", 0)).length() - !isdigit(num[0]) > 10)
 		std::cout << "float:\t" << num << std::endl;
+	else if (!type || num.substr(0, num.find(".", 0)).length() - !isdigit(num[0]) > 10)
+		std::cout << "float:\tnanf" << std::endl;
 	else
 		std::cout << "float:\t"  << std::fixed << std::setprecision(1) << float_num << "f" << std::endl;
 	if (num == "-inf" || num == "+inf")
