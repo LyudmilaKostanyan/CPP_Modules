@@ -3,7 +3,8 @@
 
 # include <iostream>
 
-void	increment(int &i)
+template <typename T>
+void	increment(T &i)
 {
 	i++;
 }
@@ -12,6 +13,12 @@ template <typename T>
 void	decrement(T &i)
 {
 	i--;
+}
+
+template <typename T>
+void	print(T &i)
+{
+	std::cout << i << std::endl;
 }
 
 template <typename A>

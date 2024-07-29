@@ -47,7 +47,7 @@ Array<T>::~Array()
 template <typename T>
 const T& Array<T>::operator[](int index) const
 {
-	if (index < 0 || index >= _size)
+	if (index < 0 || (size_t)index >= _size)
 		throw IndexException();
 	return array[index];
 }
@@ -55,7 +55,7 @@ const T& Array<T>::operator[](int index) const
 template <typename T>
 T& Array<T>::operator[](int index)
 {
-	if (index < 0 || index >= _size)
+	if (index < 0 || (size_t)index >= _size)
 		throw IndexException();
 	return array[index];
 }
