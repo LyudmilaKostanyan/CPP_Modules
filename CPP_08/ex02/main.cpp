@@ -37,20 +37,20 @@ int main()
 	{
 		std::list<int> mstack;
 
-		mstack.push_front(5);
-		mstack.push_front(17);
+		mstack.push_back(5);
+		mstack.push_back(17);
 
 		std::cout << "top: " << mstack.front() << std::endl;
 
-		mstack.pop_front();
+		mstack.pop_back();
 
 		std::cout << "size: " << mstack.size() << std::endl;
 
-		mstack.push_front(3);
-		mstack.push_front(5);
-		mstack.push_front(737);
+		mstack.push_back(3);
+		mstack.push_back(5);
+		mstack.push_back(737);
 		//[...]
-		mstack.push_front(0);
+		mstack.push_back(0);
 
 		std::list<int>::iterator it = mstack.begin();
 		std::list<int>::iterator ite = mstack.end();
