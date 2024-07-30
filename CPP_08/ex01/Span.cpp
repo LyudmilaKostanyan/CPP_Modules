@@ -34,7 +34,6 @@ void	Span::addNumber(int num)
 
 void	Span::addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end)
 {
-	// std::cout << nums.capacity() << std::endl;
 	if (this->n < std::distance(begin, end))
 		throw std::exception();
 	this->nums.insert(this->nums.end(), begin, end);
@@ -56,7 +55,7 @@ int	Span::shortestSpan()
 		throw std::exception();
 	std::sort(tmp.begin(), tmp.end());
 	min = tmp[1] - tmp[0];
-	for (int i = 1; i < tmp.size() - 1; i++)
+	for (size_t i = 1; i < tmp.size() - 1; i++)
 		if (tmp[i + 1] - tmp[i] < min)
 			min = tmp[i + 1] - tmp[i];
 	return min;

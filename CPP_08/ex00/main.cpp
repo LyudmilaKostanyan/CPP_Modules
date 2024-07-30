@@ -5,9 +5,14 @@
 
 int main()
 {
-	std::vector<int> vec = {1, 2, 3, 4, 5};
-	std::list<int> _list = {1, 2, 3, 4, 5};
+	std::vector<int> vec;
+	std::list<int> _list;
 
+	for (size_t i = 0; i < 5; i++)
+	{
+		vec.push_back(i + 1);
+		_list.push_back(i + 1);
+	}
 	for (std::vector<int>::iterator i = vec.begin(); i != vec.end(); i++)
 		std::cout << *i << " ";
 	std::cout << std::endl;

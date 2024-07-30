@@ -25,7 +25,9 @@ int main()
 
 	{
 		Span s(5);
-		std::vector<int> numbers = {1, 2, 3, 4, 5};
+		std::vector<int> numbers;
+		for (size_t i = 0; i < 5; i++)
+			numbers.push_back(i + 1);
 		s.addNumber(numbers.begin(), numbers.end());
 		try
 		{
@@ -39,7 +41,9 @@ int main()
 
 	{
 		Span s(4);
-		std::vector<int> numbers = {1, 2, 3, 4, 5};
+		std::vector<int> numbers;
+		for (size_t i = 0; i < 4; i++)
+			numbers.push_back(i + 1);
 		try
 		{
 			s.addNumber(numbers.begin(), numbers.end());
