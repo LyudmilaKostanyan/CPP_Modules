@@ -84,7 +84,8 @@ void	second_step(C &container, C &largest, C &smallest)
 		else
 			smallest.push_back(container[i - 1]);
 	}
-	merge_sort<C>(smallest, 0, smallest.size() - 1);
+	if (smallest.size())
+		merge_sort<C>(smallest, 0, smallest.size() - 1);
 }
 
 
