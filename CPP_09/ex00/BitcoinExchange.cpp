@@ -2,7 +2,7 @@
 
 bool	check_value(std::string value)
 {
-	int	i = -1;
+	size_t	i = -1;
 
 	if (value.find(".") != value.rfind("."))
 		return (false);
@@ -35,7 +35,7 @@ bool	check_key(std::string key)
 	return (true);
 }
 
-bool	check_line(std::string line, int pipe, std::string key, float value)
+bool	check_line(std::string line, size_t pipe, std::string key, float value)
 {
 	if (line.empty() || pipe == std::string::npos
 		|| (line[pipe - 1] && line[pipe - 1] != ' ')

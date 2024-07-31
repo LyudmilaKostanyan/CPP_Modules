@@ -160,6 +160,8 @@ double	start_timer(C &container)
 
 PmergeMe::PmergeMe(char **argv)
 {
+	long	num;
+
 	for (int i = 1; argv[i]; i++)
 	{
 		for (int j = 0; argv[i][j]; j++)
@@ -170,8 +172,14 @@ PmergeMe::PmergeMe(char **argv)
 				return ;
 			}
 		}
-		vector.push_back(atoi(argv[i]));
-		deque.push_back(atoi(argv[i]));
+		num = atol(argv[i]);
+		if (!argv[i][0] || std::string(argv[i]).size() > 10 || num > INT_MAX)
+		{
+			std::cout << "Invalid arguments" << std::endl;
+			return ;
+		}
+		vector.push_back(num);
+		deque.push_back(num);
 	}
 	std::cout << "Before:\t";
 	for (size_t i = 0; i < vector.size(); i++)
