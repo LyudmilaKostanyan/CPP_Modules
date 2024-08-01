@@ -16,7 +16,7 @@ RPN &RPN::operator=(const RPN &other)
 	return (*this);
 }
 
-bool	operations_handler(std::queue<double> &nums, std::queue<char> &signs, short &num1)
+bool	operations_handler(std::queue<double> &nums, std::queue<char> &signs, double &num1)
 {
 	short	num2;
 	size_t	i = 0;
@@ -52,9 +52,9 @@ bool	operations_handler(std::queue<double> &nums, std::queue<char> &signs, short
 
 bool	RPN::argument_hendler(std::string arg)
 {
-	short	num;
-	short	tmp;
-	short	num_b;
+	double	num;
+	double	tmp;
+	double	num_b;
 	size_t	count = 0;
 
 	for (size_t i = 0; i < arg.length(); i++)
@@ -77,7 +77,8 @@ bool	RPN::argument_hendler(std::string arg)
 					signs_b.push(arg[i]);
 				else
 					return (false);
-				operations_handler(nums_b, signs_b, num_b);
+				if (!operations_handler(nums_b, signs_b, num_b))
+					return (false);
 				nums.push(num_b);
 			}
 			else
@@ -86,14 +87,15 @@ bool	RPN::argument_hendler(std::string arg)
 				i--;
 			}
 		}
-		else if (arg[i] == '+' || arg[i] == '-' || arg[i] == '*' || arg[i] == '/')
+		else if ((arg[i] == '+' || arg[i] == '-' || arg[i] == '*' || arg[i] == '/') && count)
 			signs.push(arg[i]);
 		else if (arg[i] != ' ')
 			return (false);
 	}
 	if (nums.size() == 0 || signs.size() == 0 || nums.size() != signs.size() + 1)
 		return (false);
-	operations_handler(nums, signs, num);
+	if (!operations_handler(nums, signs, num))
+		return (false);
 	std::cout << num << std::endl;
 	return (true);
 }

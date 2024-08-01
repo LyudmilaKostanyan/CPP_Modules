@@ -25,7 +25,7 @@ bool	check_key(std::string key)
 	short	year = atoi(key.substr(0, 4).c_str());
 	short	month = atoi(key.substr(5, 2).c_str());
 	short	day = atoi(key.substr(8, 2).c_str());
-	if (year < 2009 || year > 2022)
+	if (year < 2009)
 		return (false);
 	if (month < 1 || month > 12)
 		return (false);
@@ -129,7 +129,7 @@ void	BitcoinExchange::find_date(std::ifstream &file, std::string line)
 				else
 					_key = std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(day);
 			}
-			std::cout << key << " => " << value << " = " << value * data[_key] << std::endl;
+			std::cout << key << " => " << value << " = " << std::fixed << std::setprecision(1) << value * data[_key] << std::endl;
 		}
 	}
 }

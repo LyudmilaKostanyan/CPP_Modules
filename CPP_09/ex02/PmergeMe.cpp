@@ -202,5 +202,4 @@ PmergeMe::PmergeMe(char **argv)
 	std::cout << std::endl;
 	std::cout <<  TIME << vector.size() << VECTOR << time_v << " us" << std::endl;
 	std::cout <<  TIME << deque.size() << DEQUE << time_d << " us" << std::endl;
-
 }
