@@ -14,6 +14,7 @@
 # include <cmath>
 # include <ctime>
 # include <sys/time.h>
+# include <climits>
 
 class PmergeMe
 {

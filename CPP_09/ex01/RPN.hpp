@@ -2,21 +2,22 @@
 # define RPH_HPP
 
 # include <iostream>
-# include <stack>
+# include <queue>
 
 class RPN
 {
 	private:
-		std::stack<double> nums;
+		std::queue<double> nums;
+		std::queue<double> nums_b;
+		std::queue<char> signs;
+		std::queue<char> signs_b;
 	public:
 		RPN();
 		RPN(std::string arg);
 		~RPN();
 		RPN(const RPN &other);
 		RPN &operator=(const RPN &other);
-		bool	operations_handler(char);
 		bool	argument_hendler(std::string arg);
-
 };
 
 #endif

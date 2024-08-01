@@ -30,6 +30,7 @@ class BitcoinExchange
 		BitcoinExchange &operator=(const BitcoinExchange &other);
 		~BitcoinExchange();
 		bool	read_data();
+		void	find_date(std::ifstream &file, std::string line);
 };
 
 #endif

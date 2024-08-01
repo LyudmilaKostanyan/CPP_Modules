@@ -1,6 +1,6 @@
 NAME = btc
 CPP = c++
-FLAGS = -Wall -Wextra -Werror -std=c++98
+FLAGS = -Wall -Wextra -Werror #-std=c++98
 IFLAGS = -I.
 OBJ_DIR = ./obj
 INCL = $(wildcard .h*)

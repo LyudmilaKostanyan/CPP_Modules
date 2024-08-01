@@ -85,13 +85,59 @@ bool	BitcoinExchange::read_data()
 	return (true);
 }
 
+void	BitcoinExchange::find_date(std::ifstream &file, std::string line)
+{
+	std::string	key;
+	float		value;
+	int			pipe;
+	short		year;
+	short		month;
+	short		day;
+
+	while (std::getline(file, line) && line.length() > 0)
+	{
+		pipe = line.find("|");
+		key = line.substr(0, pipe - 1);
+		value = atof((line.substr(pipe + 2, line.size() - pipe - 1)).c_str());
+		if (check_line(line, pipe, key, value))
+		{
+			std::string	_key = key;
+			while (data.find(_key) == data.end() && key.substr(0, 4) != "2008")
+			{
+				day = atoi(_key.substr(8, 2).c_str());
+				month = atoi(_key.substr(5, 2).c_str());
+				year = atoi(_key.substr(0, 4).c_str());
+				if (day > 0)
+					day--;
+				else if (month > 1)
+				{
+					month--;
+					day = 31;
+				}
+				else if (year > 2009)
+				{
+					year--;
+					month = 12;
+					day = 31;
+				}
+				if (day < 10 && month > 9)
+					_key = std::to_string(year) + "-" + std::to_string(month) + "-0" + std::to_string(day);
+				else if (day < 10 && month < 10)
+					_key = std::to_string(year) + "-0" + std::to_string(month) + "-0" + std::to_string(day);
+				else if (day > 9 && month < 10)
+					_key = std::to_string(year) + "-0" + std::to_string(month) + "-" + std::to_string(day);
+				else
+					_key = std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(day);
+			}
+			std::cout << key << " => " << value << " = " << value * data[_key] << std::endl;
+		}
+	}
+}
+
 BitcoinExchange::BitcoinExchange(std::string file_name)
 {
-	std::ifstream	file(file_name);
+	std::ifstream	file(file_name.c_str());
 	std::string		line;
-	std::string		key;
-	float			value;
-	int				pipe;
 
 	if (!read_data())
 		return ;
@@ -106,32 +152,7 @@ BitcoinExchange::BitcoinExchange(std::string file_name)
 		std::cerr << W_FORMAT << std::endl;
 		return ;
 	}
-	while (std::getline(file, line) && line.length() > 0)
-	{
-		pipe = line.find("|");
-		key = line.substr(0, pipe - 1);
-		value = atof((line.substr(pipe + 2, line.size() - pipe - 1)).c_str());
-		if (check_line(line, pipe, key, value))
-		{
-			std::string	_key = key;
-			while (data.find(_key) == data.end() && key.substr(0, 4) != "2008")
-			{
-				if (atoi(_key.substr(8, 2).c_str()) > 0)
-					_key = _key.substr(0, 8) + "0" + std::to_string(atoi(_key.substr(8, 2).c_str()) - 1);
-				else
-				{
-					if (atoi(_key.substr(5, 2).c_str()) > 0
-						&& std::to_string(atoi(_key.substr(5, 2).c_str()) - 1).length() != 2)
-						_key = _key.substr(0, 5) + "0" + std::to_string(atoi(_key.substr(5, 2).c_str()) - 1) + "-31";
-					else if (atoi(_key.substr(5, 2).c_str()) > 0)
-						_key = _key.substr(0, 5) + std::to_string(atoi(_key.substr(5, 2).c_str()) - 1) + "-31";
-					else
-						_key = std::to_string(atoi(_key.substr(0, 4).c_str()) - 1) + "-12-31";
-				}
-			}
-			std::cout << key << " => " << value << " = " << value * data[_key] << std::endl;
-		}
-	}
+	find_date(file, line);
 	file.close();
 }
 

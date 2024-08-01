@@ -16,68 +16,85 @@ RPN &RPN::operator=(const RPN &other)
 	return (*this);
 }
 
-bool	RPN::operations_handler(char arg)
+bool	operations_handler(std::queue<double> &nums, std::queue<char> &signs, short &num1)
 {
-	double	num1;
-	double	num2;
+	short	num2;
+	size_t	i = 0;
 
-	num1 = nums.top();
-	nums.pop();
-	num2 = nums.top();
-	nums.pop();
-	if (arg == '+')
-		nums.push(num2 + num1);
-	else if (arg == '-')
-		nums.push(num2 - num1);
-	else if (arg == '*')
-		nums.push(num2 * num1);
-	else if (arg == '/')
+	while (signs.size() != 0 && ++i)
 	{
-		if (num1 == 0)
+		if (i == 1)
 		{
-			std::cout << "Error: division by zero." << std::endl;
-			return (false);
+			num1 = nums.front();
+			nums.pop();
 		}
-			nums.push(num2 / num1);
-	}
-	else
-	{
-		std::cout << "Error: wrong symbols." << std::endl;
-		return (false);
+		num2 = nums.front();
+		nums.pop();
+		if (signs.front() == '+')
+			num1 = num1 + num2;
+		else if (signs.front() == '-')
+			num1 = num1 - num2;
+		else if (signs.front() == '*')
+			num1 = num1 * num2;
+		else if (signs.front() == '/')
+		{
+			if (num2 == 0)
+			{
+				std::cout << "Error: division by zero." << std::endl;
+				return (false);
+			}
+			num1 = num1 / num2;
+		}
+		signs.pop();
 	}
 	return (true);
 }
 
 bool	RPN::argument_hendler(std::string arg)
 {
-	bool	state = 0;
+	short	num;
+	short	tmp;
+	short	num_b;
+	size_t	count = 0;
 
 	for (size_t i = 0; i < arg.length(); i++)
 	{
-		state = 0;
 		if (arg[i] == ' ')
 			continue ;
-		if (nums.size() > 2)
-		{
-			std::cout << "Error: too many numbers." << std::endl;
-			return (false);
-		}
 		if (isdigit(arg[i]))
-			nums.push(arg[i] - '0');
-		else if (nums.size() < 2)
 		{
-			std::cout << "Error: not enough numbers or wrong type of arguments." << std::endl;
+			tmp = arg[i] - '0';
+			count++;
+			while (arg[++i] == ' ')
+				;
+			if (isdigit(arg[i]) && count != 1)
+			{
+				nums_b.push(tmp);
+				nums_b.push(arg[i] - '0');
+				while (arg[++i] == ' ')
+					;
+				if (arg[i] == '+' || arg[i] == '-' || arg[i] == '*' || arg[i] == '/')
+					signs_b.push(arg[i]);
+				else
+					return (false);
+				operations_handler(nums_b, signs_b, num_b);
+				nums.push(num_b);
+			}
+			else
+			{
+				nums.push(tmp);
+				i--;
+			}
+		}
+		else if (arg[i] == '+' || arg[i] == '-' || arg[i] == '*' || arg[i] == '/')
+			signs.push(arg[i]);
+		else if (arg[i] != ' ')
 			return (false);
-		}
-		else
-		{
-			if (!operations_handler(arg[i]))
-				return (false);
-			state = 1;
-		}
 	}
-	if (!state)
+	if (nums.size() == 0 || signs.size() == 0 || nums.size() != signs.size() + 1)
 		return (false);
+	operations_handler(nums, signs, num);
+	std::cout << num << std::endl;
 	return (true);
 }
 
@@ -88,13 +105,4 @@ RPN::RPN(std::string arg)
 		std::cout << "Wrong type of arguments" << std::endl;
 		return ;
 	}
-	else if (nums.size() != 0 && nums.size() == 1)
-		std::cout << nums.top() << std::endl;
-	else if (nums.size() != 1)
-	{
-		nums.pop();
-		std::cout << nums.top() << std::endl;
-	}
-	else
-		std::cout << "Error: pleas write expression." << std::endl;
 }
