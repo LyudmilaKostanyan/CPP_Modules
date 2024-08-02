@@ -26,3 +26,15 @@ Brain	&Brain::operator=(const Brain &other)
 	}
 	return *this;
 }
+
+
+void	Brain::setIdeas(std::string *type)
+{
+	for (int i = 0; i < 100; i++)
+		this->ideas[i] = type[i];
+}
+
+std::string	*Brain::getType() const
+{
+	return (std::string *)this->ideas;
+}

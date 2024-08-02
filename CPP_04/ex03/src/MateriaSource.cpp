@@ -12,19 +12,25 @@ MateriaSource::~MateriaSource()
 	for (int i = 0; i < 4; i++)
 		if (this->materia[i])
 			delete this->materia[i];
-	delete this->materia;
+	delete [] this->materia;
 }
 
-MateriaSource::MateriaSource(const MateriaSource &other) : IMateriaSource(other) {}
+MateriaSource::MateriaSource(const MateriaSource &other)
+{
+	if (!this->materia)
+		this->materia = new AMateria*[4];
+	for (int i = 0; i < 4; i++)
+		if (other.materia[i])
+			this->materia[i] = other.materia[i];
+}
 
 MateriaSource	&MateriaSource::operator=(const MateriaSource &other)
 {
+	if (!this->materia)
+		this->materia = new AMateria*[4];
 	for (int i = 0; i < 4; i++)
-	{
-		if (this->materia[i])
-			delete this->materia[i];
-		this->materia[i] = (*(other.materia[i])).clone();
-	}
+		if (other.materia[i])
+			this->materia[i] = other.materia[i];
 	return *this;
 }
 

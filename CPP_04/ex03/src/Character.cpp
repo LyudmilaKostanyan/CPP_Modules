@@ -11,7 +11,7 @@ Character::Character()
 Character::~Character()
 {
 	for (int i = 0; i < 4; i++)
-		if (this->inventory[i] != NULL)
+		if (this->inventory[i])
 			delete this->inventory[i];
 	delete [] this->inventory;
 }
@@ -27,20 +27,21 @@ Character::Character(std::string const &name)
 Character::Character(const Character &other)
 {
 	this->name = other.name;
-	this->inventory = new AMateria*[4];
+	if (!this->inventory)
+		this->inventory = new AMateria*[4];
 	for (int i = 0; i < 4; i++)
-		this->inventory[i] = other.inventory[i]->clone();
+		if (other.inventory[i])
+			this->inventory[i] = other.inventory[i];
 }
 
 Character	&Character::operator=(const Character &other)
 {
 	this->name = other.name;
+	if (!this->inventory)
+		this->inventory = new AMateria*[4];
 	for (int i = 0; i < 4; i++)
-		delete this->inventory[i];
-	delete [] this->inventory;
-	this->inventory = new AMateria*[4];
-	for (int i = 0; i < 4; i++)
-		this->inventory[i] = other.inventory[i]->clone();
+		if (other.inventory[i])
+			this->inventory[i] = other.inventory[i];
 	return *this;
 }
 
@@ -71,5 +72,7 @@ void	Character::use(int idx, ICharacter& target)
 {
 	if (idx >= 0 && idx < 4 && this->inventory[idx] != NULL)
 		this->inventory[idx]->use(target);
+	else
+		std::cout << "Wrong arguments" << std::endl;
 }
 
